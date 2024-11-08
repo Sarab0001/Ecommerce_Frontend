@@ -10,14 +10,14 @@ const BestSeller = () => {
   useEffect(() => {
     const bestProduct = products.filter((item) => item.bestseller);
     setBestSeller(bestProduct.slice(0,5))
-  }, []);
+  }, [products]);
 
   return (
     <div className="my-10">
       <div className="text-center text-3xl py-8">
         <Title text1={"BEST"} text2={"SELLERS"} />
         <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
-          We have the bset seller products which our customers buy on daily
+          We have the best seller products which our customers buy on daily
           basis , we have almost 70% repeate customers all over globe.
         </p>
       </div>
