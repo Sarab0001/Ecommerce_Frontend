@@ -5,7 +5,7 @@ import Title from "../components/Title";
 import ProductItems from "../components/ProductItems";
 
 const Collection = () => {
-  const { products ,search , showSearch } = useContext(ShopContext);
+  const { products, search, showSearch } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filteredProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
@@ -31,8 +31,10 @@ const Collection = () => {
   const applyFilter = () => {
     let productsCopy = products.slice();
 
-    if(showSearch && search){
-      productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
+    if (showSearch && search) {
+      productsCopy = productsCopy.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
     }
 
     if (category.length > 0) {
@@ -49,15 +51,14 @@ const Collection = () => {
   };
 
   const sortProduct = () => {
-
     let fpCopy = filteredProducts.slice();
 
-    switch(sortType){
+    switch (sortType) {
       case "low-high":
-        setFilterProducts(fpCopy.sort((a, b) => (a.price - b.price)));
+        setFilterProducts(fpCopy.sort((a, b) => a.price - b.price));
         break;
       case "high-low":
-        setFilterProducts(fpCopy.sort((a, b) => (b.price - a.price)));
+        setFilterProducts(fpCopy.sort((a, b) => b.price - a.price));
         break;
 
       default:
@@ -70,12 +71,11 @@ const Collection = () => {
     sortProduct();
   }, [sortType]);
 
-  useEffect(() => {
-  }, [filteredProducts]);
+  useEffect(() => {}, [filteredProducts]);
 
   useEffect(() => {
     applyFilter();
-  }, [category , SubCategory  , search , showSearch, products]);
+  }, [category, SubCategory, search, showSearch, products]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
@@ -94,7 +94,7 @@ const Collection = () => {
         </p>
         {/* Category Filter */}
         <div
-          className={`border border-gray-300 pl-5 py-3 mt-6 ${
+          className={`border border-gray-300  pl-5 py-3 mt-6 ${
             showFilter ? "" : "hidden"
           } sm:block`}
         >
@@ -168,20 +168,23 @@ const Collection = () => {
         </div>
       </div>
       {/* Right Section */}
-      <div className="flex-1">
-        <div className="flex justify-between text-base sm:text-2xl mb-4">
+      <div className="flex-1 px-4 sm:px-6 lg:px-8">
+        {/* Header with Title and Sort */}
+        <div className="flex flex-col sm:flex-row justify-between items-center text-sm sm:text-lg lg:text-2xl mb-4">
           <Title text1={"ALL"} text2={"COLLECTIONS"} />
           {/* Product Sort */}
           <select
             onChange={(e) => setSortType(e.target.value)}
-            className="border-2 border-gray-300 text-sm px-2"
+            className="mt-2 sm:mt-0 border border-gray-300 text-sm px-3 py-2 rounded w-full sm:w-auto"
           >
-            <option value="relavent">Sort by: Relavent</option>
+            <option value="relavent">Sort by: Relevant</option>
             <option value="low-high">Sort by: Low to High</option>
             <option value="high-low">Sort by: High to Low</option>
           </select>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
+
+        {/* Product Grid */}
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 md:gap-4">
           {filteredProducts.map((item, index) => (
             <ProductItems
               key={index}

@@ -14,6 +14,7 @@ const Product = () => {
   const [size,setSize] = useState('')
 
   const fetchProductData = async () =>{
+console.log("called");
 
      products.map((item)=>{
         if(item._id === productId){
@@ -37,7 +38,9 @@ const Product = () => {
           <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full'>
            {
             productData.image.map((item,index)=>(
-              <img src={item} key={index} className='w-[24%] sm:w-full sm:mb-3 flex flex-shrink-0 cursor-pointer' />
+              <img src={item} key={index} onClick={()=>{
+                setImage(item) 
+              }} className='w-[24%] sm:w-full sm:mb-3 flex flex-shrink-0 cursor-pointer' />
             ))
            }
           </div>
